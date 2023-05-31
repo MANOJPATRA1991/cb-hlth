@@ -9,3 +9,9 @@ You've been asked to refactor the function `deterministicPartitionKey` in [`dpk.
 You will be graded on the exhaustiveness and quality of your unit tests, the depth of your refactor, and the level of insight into your thought process provided by the written explanation.
 
 ## Your Explanation Here
+
+1. The line `crypto.createHash(algorithm).update(value).digest(encoding)` was repeated more than once. So, a generic function `createEncoding` was created which does the same. It also ensures that the value passed to `update` is a string, so, if value is not, it is stringified prior to being hashed.
+
+2. `candidate` will have a default value of "0".
+
+3. If `event` is passed to the function, then for all cases where event is not an object or it is an object with `partitionKey` set to undefined or an empty string, event will be encoded. If `partitionKey` is defined, then `candidate` will be set to the same.
